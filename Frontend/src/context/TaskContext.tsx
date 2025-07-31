@@ -1,14 +1,5 @@
 import { createContext, useContext, useState, type ReactNode } from 'react'
-
-export type TaskStatus = 'To-Do' | 'In Progress' | 'Done'
-
-export interface Task {
-  id: number
-  title: string
-  description?: string
-  status: TaskStatus
-  dueDate: string
-}
+import type { Task } from '../types'
 
 interface TaskContextType {
   tasks: Task[]
