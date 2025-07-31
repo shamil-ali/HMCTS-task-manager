@@ -10,16 +10,16 @@ function CreateTask() {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [status, setStatus] = useState<TaskStatus>('To-Do')
-  const [dueDate, setDueDate] = useState('')
+  const [due_date, setDueDate] = useState('')
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (!title || !dueDate) {
+    if (!title || !due_date) {
       alert('Please fill in all required fields.')
       return
     }
 
-    addTask({ title, description, status, dueDate })
+    addTask({ title, description, status, due_date })
     navigate('/')
   }
 
@@ -69,9 +69,9 @@ function CreateTask() {
           <label>Due Date</label>
           <input
             type="datetime-local"
-            name="dueDate"
+            name="due_date"
             className="form-control"
-            value={dueDate}
+            value={due_date}
             onChange={e => setDueDate(e.target.value)}
           />
         </div>

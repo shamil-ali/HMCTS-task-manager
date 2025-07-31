@@ -11,15 +11,19 @@ function Home() {
   const [sortedTasks, setSortedTasks] = useState(tasks)
 
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
-  const [sortCriteria, setSortCriteria] = useState('dueDate')
+  const [sortCriteria, setSortCriteria] = useState('due_date')
 
   const [searchId, setSearchId] = useState('')
 
   useEffect(() => {
+    setFilteredTasks(tasks)
+  }, [tasks])
+
+  useEffect(() => {
     const sorted = [...filteredTasks].sort((a, b) => {
-      if (sortCriteria === 'dueDate') {
-        const dateA = new Date(a.dueDate).getTime()
-        const dateB = new Date(b.dueDate).getTime()
+      if (sortCriteria === 'due_date') {
+        const dateA = new Date(a.due_date).getTime()
+        const dateB = new Date(b.due_date).getTime()
         return sortOrder === 'asc' ? dateA - dateB : dateB - dateA
       } return 0
     })
@@ -36,12 +40,12 @@ function Home() {
   }
 
   const handleSortChange = (value: string) => {
-    if (value === 'dueDateAsc') {
+    if (value === 'due_date_asc') {
       setSortOrder('asc')
-      setSortCriteria('dueDate')
-    } else if (value === 'dueDateDesc') {
+      setSortCriteria('due_date')
+    } else if (value === 'due_date_desc') {
       setSortOrder('desc')
-      setSortCriteria('dueDate')
+      setSortCriteria('due_date')
     }
   }
 
@@ -67,8 +71,8 @@ function Home() {
           <label className="me-2">Sort by:</label>
           <select className='form-select' onChange={(e) => handleSortChange(e.target.value)}>
             <option value="">Select...</option>
-            <option value="dueDateAsc">Due Date Earliest - Latest</option>
-            <option value="dueDateDesc">Due Date Latest - Earliest</option>
+            <option value="due_date_asc">Due Date Earliest - Latest</option>
+            <option value="due_date_desc">Due Date Latest - Earliest</option>
           </select>
         </div>
 
@@ -102,7 +106,7 @@ function Home() {
                 <h5 className="task-id">Task ID: {task.id}</h5>
                 <h3>{task.title}</h3>
                 <p>{task.description}</p>
-                <span className="task-due-date">Due: {new Date(task.dueDate).toLocaleString()}</span>
+                <span className="task-due-date">Due: {new Date(task.due_date).toLocaleString()}</span>
                 <span className="task-status">Status: {task.status}</span>
                 <div className="card-buttons mt-2 d-flex">
                   <button 

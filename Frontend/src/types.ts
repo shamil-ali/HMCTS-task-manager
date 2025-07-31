@@ -5,5 +5,5 @@ export interface Task {
   title: string
   description?: string
   status: TaskStatus
-  dueDate: string
+  due_date: string
 }

@@ -13,14 +13,14 @@ function EditTask() {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [status, setStatus] = useState<TaskStatus>('To-Do')
-  const [dueDate, setDueDate] = useState('')
+  const [due_date, setDue_date] = useState('')
 
   useEffect(() => {
     if (taskToEdit) {
       setTitle(taskToEdit.title)
       setDescription(taskToEdit.description || '')
       setStatus(taskToEdit.status)
-      setDueDate(taskToEdit.dueDate)
+      setDue_date(taskToEdit.due_date)
     }
   }, [taskToEdit])
 
@@ -33,7 +33,7 @@ function EditTask() {
       title,
       description,
       status,
-      dueDate
+      due_date
     })
 
     navigate('/')
@@ -84,9 +84,9 @@ function EditTask() {
           <label>Due Date</label>
           <input
             type="datetime-local"
-            value={dueDate}
+            value={due_date}
             className="form-control"
-            onChange={e => setDueDate(e.target.value)}
+            onChange={e => setDue_date(e.target.value)}
           />
         </div>
 
