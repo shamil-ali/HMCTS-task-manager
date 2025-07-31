@@ -3,9 +3,9 @@ import type { Task } from './types'
 
 const API_BASE = 'http://localhost:8000'
 
-export const fetchTasks = () => axios.get<Task[]>(`${API_BASE}/tasks`)
+export const getTasks = () => axios.get<Task[]>(`${API_BASE}/tasks`)
 
-export const fetchTaskById = (id: number) =>
+export const getTaskById = (id: number) =>
   axios.get<Task>(`${API_BASE}/tasks/${id}`)
 
 export const createTask = (task: Omit<Task, 'id'>) =>
