@@ -20,11 +20,13 @@ def create_task(db: Session, task: schemas.TaskCreate):
     db.refresh(db_task)
     return db_task
 
-def update_task_status(db: Session, task_id: int, new_status: str):
+def update_task(db: Session, task_id: int, updated_data: schemas.TaskUpdate):
     task = get_task(db, task_id)
     if not task:
         raise NoResultFound(f"Task with ID {task_id} not found")
-    task.status = new_status
+    for key, value in updated_data.dict(exclude_unset=True).items():
+        setattr(task, key, value)
+
     db.commit()
     db.refresh(task)
     return task

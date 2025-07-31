@@ -17,7 +17,10 @@ class TaskCreate(TaskBase):
     pass
 
 class TaskUpdate(BaseModel):
-    status: TaskStatus
+    title: Optional[str] = None
+    description: Optional[str] = None
+    status: Optional[TaskStatus] = None
+    due_date: Optional[datetime] = None
 
     class Config:
         allow_population_by_field_name = True

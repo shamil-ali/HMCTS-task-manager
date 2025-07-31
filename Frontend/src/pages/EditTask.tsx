@@ -20,20 +20,22 @@ function EditTask() {
       setTitle(taskToEdit.title)
       setDescription(taskToEdit.description || '')
       setStatus(taskToEdit.status)
-      setDue_date(taskToEdit.due_date)
+      setDue_date(taskToEdit.due_date.slice(0, 16))
     }
   }, [taskToEdit])
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!taskToEdit) return
 
-    updateTask({
+    const updatedDueDate = new Date(due_date).toISOString()
+
+    await updateTask({
       ...taskToEdit,
       title,
       description,
       status,
-      due_date
+      due_date: updatedDueDate
     })
 
     navigate('/')

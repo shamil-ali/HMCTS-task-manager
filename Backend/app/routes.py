@@ -32,13 +32,14 @@ def read_task(task_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Task not found")
     return task
 
-# PUT /tasks/{id}/status
-@router.put("/tasks/{task_id}/status", response_model=schemas.Task)
-def update_status(task_id: int, update: schemas.TaskUpdate, db: Session = Depends(get_db)):
+# PUT /tasks/{id}
+@router.put("/tasks/{task_id}", response_model=schemas.Task)
+def update_task(task_id: int, update: schemas.TaskUpdate, db: Session = Depends(get_db)):
     try:
-        return crud.update_task_status(db, task_id, update.status)
+        return crud.update_task(db, task_id, update)
     except NoResultFound:
         raise HTTPException(status_code=404, detail="Task not found")
+
 
 # DELETE /tasks/{id}
 @router.delete("/tasks/{task_id}", response_model=schemas.Task)
