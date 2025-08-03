@@ -15,7 +15,7 @@ def get_db():
         db.close()
 
 # POST /tasks
-@router.post("/tasks", response_model=schemas.Task)
+@router.post("/tasks", response_model=schemas.Task, status_code=status.HTTP_201_CREATED)
 def create_task(task: schemas.TaskCreate, db: Session = Depends(get_db)):
     return crud.create_task(db, task)
 
@@ -42,9 +42,10 @@ def update_task(task_id: int, update: schemas.TaskUpdate, db: Session = Depends(
 
 
 # DELETE /tasks/{id}
-@router.delete("/tasks/{task_id}", response_model=schemas.Task)
+@router.delete("/tasks/{task_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_task(task_id: int, db: Session = Depends(get_db)):
     try:
-        return crud.delete_task(db, task_id)
+        crud.delete_task(db, task_id)
+        return None
     except NoResultFound:
         raise HTTPException(status_code=404, detail="Task not found")
